@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#4a6fa5">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Tic Tac Toe</title>
+    <link rel="icon" href="https://media.istockphoto.com/id/1864447885/photo/tic-tac-toe.webp?a=1&b=1&s=612x612&w=0&k=20&c=nWM3PQEUXenP2Xl0W7E1TvZOkF5WWRGHdgsGkYlxp2I=">
+    <link rel="stylesheet" href="tic-tac-toe.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Tic Tac Toe</h1>
+            <div class="controls">
+                <button id="personalize-btn" aria-label="Personalize game">
+                    <i class="fas fa-user-cog"></i>
+                </button>
+                <button id="theme-toggle" aria-label="Toggle dark mode">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <div class="sound-controls">
+                    <button id="sound-toggle" aria-label="Toggle sound" class="sound-on">
+                        <i class="fas fa-volume-up"></i>
+                    </button>
+                    <div class="volume-control">
+                        <input type="range" id="volume-slider" min="0" max="100" value="70" aria-label="Volume control">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="board" id="board">
+            <div class="cell" data-cell-index="0"></div>
+            <div class="cell" data-cell-index="1"></div>
+            <div class="cell" data-cell-index="2"></div>
+            <div class="cell" data-cell-index="3"></div>
+            <div class="cell" data-cell-index="4"></div>
+            <div class="cell" data-cell-index="5"></div>
+            <div class="cell" data-cell-index="6"></div>
+            <div class="cell" data-cell-index="7"></div>
+            <div class="cell" data-cell-index="8"></div>
+        </div>
+
+        <div class="controls-container">
+            <div class="game-options">
+                <div class="option-group">
+                    <label for="game-mode">Game Mode:</label>
+                    <select id="game-mode">
+                        <option value="pvp">Player vs Player</option>
+                        <option value="pvc">Player vs Computer</option>
+                    </select>
+                </div>
+
+                <div class="option-group" id="difficulty-container">
+                    <label for="difficulty">Difficulty:</label>
+                    <select id="difficulty">
+                        <option value="easy">Easy</option>
+                        <option value="medium">Medium</option>
+                        <option value="hard">Hard</option>
+                    </select>
+                </div>
+
+
+            </div>
+
+            <div class="status-container">
+                <div id="status">Player X's turn</div>
+                <div class="status-controls">
+                    <div class="auto-restart-container">
+                        <label for="auto-restart">Auto Restart</label>
+                        <div class="toggle-switch">
+                            <input type="checkbox" id="auto-restart" checked>
+                            <label for="auto-restart"></label>
+                        </div>
+                    </div>
+                    <button id="reset-btn">Reset Game</button>
+                </div>
+            </div>
+
+            <div class="score-board">
+                <div class="score">
+                    <span class="player">Player X</span>
+                    <span id="score-x">0</span>
+                </div>
+                <div class="score">
+                    <span class="player" id="player-o-label">Player O</span>
+                    <span id="score-o">0</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="game-history">
+            <h3>Game History <button id="clear-history"><i class="fas fa-trash"></i></button></h3>
+            <div id="history-list"></div>
+        </div>
+    </div>
+
+    <!-- Audio elements for sound effects -->
+    <audio id="move-sound" src="https://assets.mixkit.co/sfx/preview/mixkit-arcade-game-jump-coin-216.mp3" preload="auto"></audio>
+
+    <!-- Win sounds -->
+    <audio id="win-sound" src="https://assets.mixkit.co/sfx/preview/mixkit-game-level-completed-2059.mp3" preload="auto"></audio>
+    <audio id="win-streak-sound" src="https://assets.mixkit.co/sfx/preview/mixkit-achievement-bell-600.mp3" preload="auto"></audio>
+    <audio id="win-fanfare-sound" src="https://assets.mixkit.co/sfx/preview/mixkit-medieval-show-fanfare-announcement-226.mp3" preload="auto"></audio>
+
+    <!-- Fail/Draw sounds -->
+    <audio id="draw-sound" src="https://assets.mixkit.co/sfx/preview/mixkit-funny-fail-low-tone-2876.mp3" preload="auto"></audio>
+    <audio id="fail-sound" src="https://assets.mixkit.co/sfx/preview/mixkit-negative-guitar-tone-2324.mp3" preload="auto"></audio>
+
+    <!-- Other game sounds -->
+    <audio id="countdown-sound" src="https://assets.mixkit.co/sfx/preview/mixkit-software-interface-start-2574.mp3" preload="auto"></audio>
+    <audio id="restart-sound" src="https://assets.mixkit.co/sfx/preview/mixkit-arcade-game-complete-or-approved-mission-205.mp3" preload="auto"></audio>
+
+    <!-- Personalization Modal -->
+    <div class="modal" id="personalize-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Personalize Your Game</h2>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="tabs">
+                    <button class="tab-btn active" data-tab="players">Players</button>
+                    <button class="tab-btn" data-tab="markers">Markers</button>
+                    <button class="tab-btn" data-tab="themes">Themes</button>
+                    <button class="tab-btn" data-tab="board">Board</button>
+                </div>
+
+                <!-- Players Tab -->
+                <div class="tab-content active" id="players-tab">
+                    <div class="form-group">
+                        <label for="player-x-name">Player X Name:</label>
+                        <input type="text" id="player-x-name" placeholder="Player X" maxlength="15">
+                    </div>
+                    <div class="form-group">
+                        <label for="player-o-name">Player O Name:</label>
+                        <input type="text" id="player-o-name" placeholder="Player O" maxlength="15">
+                    </div>
+                </div>
+
+                <!-- Markers Tab -->
+                <div class="tab-content" id="markers-tab">
+                    <div class="form-group">
+                        <label>Player X Marker:</label>
+                        <div class="marker-options" id="x-marker-options">
+                            <button class="marker-option selected" data-marker="X">X</button>
+                            <button class="marker-option" data-marker="🦊">🦊</button>
+                            <button class="marker-option" data-marker="🐱">🐱</button>
+                            <button class="marker-option" data-marker="🦁">🦁</button>
+                            <button class="marker-option" data-marker="🐯">🐯</button>
+                            <button class="marker-option" data-marker="🦄">🦄</button>
+                            <button class="marker-option" data-marker="⭐">⭐</button>
+                            <button class="marker-option" data-marker="❤️">❤️</button>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Player O Marker:</label>
+                        <div class="marker-options" id="o-marker-options">
+                            <button class="marker-option selected" data-marker="O">O</button>
+                            <button class="marker-option" data-marker="🐶">🐶</button>
+                            <button class="marker-option" data-marker="🐭">🐭</button>
+                            <button class="marker-option" data-marker="🐼">🐼</button>
+                            <button class="marker-option" data-marker="🐨">🐨</button>
+                            <button class="marker-option" data-marker="🐸">🐸</button>
+                            <button class="marker-option" data-marker="🌟">🌟</button>
+                            <button class="marker-option" data-marker="💙">💙</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Themes Tab -->
+                <div class="tab-content" id="themes-tab">
+                    <div class="theme-options">
+                        <button class="theme-option" data-theme="default">
+                            <div class="theme-preview default-theme"></div>
+                            <span>Default</span>
+                        </button>
+                        <button class="theme-option" data-theme="dark">
+                            <div class="theme-preview dark-theme"></div>
+                            <span>Dark</span>
+                        </button>
+                        <button class="theme-option" data-theme="neon">
+                            <div class="theme-preview neon-theme"></div>
+                            <span>Neon</span>
+                        </button>
+                        <button class="theme-option" data-theme="pastel">
+                            <div class="theme-preview pastel-theme"></div>
+                            <span>Pastel</span>
+                        </button>
+                        <button class="theme-option" data-theme="retro">
+                            <div class="theme-preview retro-theme"></div>
+                            <span>Retro</span>
+                        </button>
+                        <button class="theme-option" data-theme="ocean">
+                            <div class="theme-preview ocean-theme"></div>
+                            <span>Ocean</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Board Tab -->
+                <div class="tab-content" id="board-tab">
+                    <div class="form-group">
+                        <label>Board Size:</label>
+                        <div class="board-size-options">
+                            <button class="board-size-option selected" data-size="3">3×3</button>
+                            <button class="board-size-option" data-size="4">4×4</button>
+                            <button class="board-size-option" data-size="5">5×5</button>
+                        </div>
+                    </div>
+                    <p class="note">Note: Changing board size will reset the current game and scores.</p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="save-personalization">Save Changes</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="tic-tac-toe.js"></script>
+</body>
+</html>
