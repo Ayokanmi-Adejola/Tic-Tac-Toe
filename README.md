@@ -79,12 +79,8 @@ cd tic-tac-toe-deluxe
 
 Then open `tic-tac-toe.html` in your browser.
 
-## 📝 License
-
-This project is open source and available under the [MIT License](LICENSE).
 
 ## 🙏 Credits
 
-- Developed by AYOKANMI ADEJOLA
 - Icons from [Font Awesome](https://fontawesome.com/)
 - Inspired by classic Tic Tac Toe games
