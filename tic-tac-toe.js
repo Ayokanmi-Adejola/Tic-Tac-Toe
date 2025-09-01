@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // DOM elements
     const statusDisplay = document.getElementById('status');
     const resetButton = document.getElementById('reset-btn');
-    const cells = document.querySelectorAll('.cell');
+    let cells = document.querySelectorAll('.cell');
     const scoreX = document.getElementById('score-x');
     const scoreO = document.getElementById('score-o');
     const gameModeSelect = document.getElementById('game-mode');
@@ -883,7 +883,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         // Update the cells reference for future use
-        cells = document.querySelectorAll('.cell');
+        const newCells = document.querySelectorAll('.cell');
+        cells = newCells;
         console.log(`Created ${cells.length} cells for ${boardSize}x${boardSize} board`);
 
         // Update winning conditions based on board size
@@ -1081,17 +1082,19 @@ document.addEventListener('DOMContentLoaded', () => {
         closePersonalizeModal();
     }
 
-    // Event listeners with better touch support
-    cells.forEach(cell => {
-        // Use both click and touchend for better mobile response
-        cell.addEventListener('click', handleCellClick);
+    // Add event listeners to cells (will be called after board creation)
+    function addCellEventListeners() {
+        cells.forEach(cell => {
+            // Use both click and touchend for better mobile response
+            cell.addEventListener('click', handleCellClick);
 
-        // Prevent double-tap zoom on mobile
-        cell.addEventListener('touchend', function(e) {
-            e.preventDefault();
-            handleCellClick(e);
+            // Prevent double-tap zoom on mobile
+            cell.addEventListener('touchend', function(e) {
+                e.preventDefault();
+                handleCellClick(e);
+            });
         });
-    });
+    }
 
     // Add reset button event listeners with improved handling
     resetButton.addEventListener('click', function() {
@@ -1281,6 +1284,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Set initial board size attribute
     board.setAttribute('data-size', boardSize);
+
+    // Add event listeners to the initial cells
+    addCellEventListeners();
 
     // Ensure auto-restart toggle is correctly set
     autoRestartToggle.checked = autoRestartEnabled;
