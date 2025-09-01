@@ -7,24 +7,24 @@
 
 :root {
     /* Default theme */
-    --bg-color: #f5f5f5;
-    --container-bg: white;
-    --text-color: #333;
-    --header-color: #2c3e50;
-    --primary-color: #3498db;
-    --secondary-color: #e74c3c;
-    --cell-bg: #ecf0f1;
-    --cell-hover: #d6dbdf;
-    --score-bg: #f8f9fa;
+    --bg-color: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --container-bg: rgba(255, 255, 255, 0.95);
+    --text-color: #2d3748;
+    --header-color: #4a5568;
+    --primary-color: #667eea;
+    --secondary-color: #f093fb;
+    --cell-bg: rgba(255, 255, 255, 0.8);
+    --cell-hover: rgba(102, 126, 234, 0.1);
+    --score-bg: rgba(255, 255, 255, 0.6);
     --winner-color: rgba(46, 204, 113, 0.5);
-    --shadow-color: rgba(0, 0, 0, 0.1);
-    --button-bg: #e74c3c;
-    --button-hover: #c0392b;
-    --history-bg: #f8f9fa;
-    --border-color: #ddd;
-    --modal-bg: white;
-    --modal-header: #f8f9fa;
-    --modal-footer: #f8f9fa;
+    --shadow-color: rgba(0, 0, 0, 0.15);
+    --button-bg: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --button-hover: linear-gradient(135deg, #5a67d8 0%, #6b46c1 100%);
+    --history-bg: rgba(255, 255, 255, 0.6);
+    --border-color: rgba(102, 126, 234, 0.2);
+    --modal-bg: rgba(255, 255, 255, 0.98);
+    --modal-header: rgba(255, 255, 255, 0.9);
+    --modal-footer: rgba(255, 255, 255, 0.9);
     --transition-time: 0.3s;
 }
 
@@ -135,24 +135,27 @@ body.ocean-theme {
 
 body {
     font-family: 'Arial', sans-serif;
-    background-color: var(--bg-color);
+    background: var(--bg-color);
+    backdrop-filter: blur(10px);
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
     color: var(--text-color);
-    transition: background-color var(--transition-time), color var(--transition-time);
+    transition: all var(--transition-time);
 }
 
 .container {
     text-align: center;
     background-color: var(--container-bg);
-    border-radius: 10px;
-    box-shadow: 0 0 20px var(--shadow-color);
+    backdrop-filter: blur(20px);
+    border-radius: 20px;
+    box-shadow: 0 8px 32px var(--shadow-color);
+    border: 1px solid rgba(255, 255, 255, 0.2);
     padding: 2rem;
     max-width: 500px;
     width: 90%;
-    transition: background-color var(--transition-time), box-shadow var(--transition-time);
+    transition: all var(--transition-time);
 }
 
 .controls-container {
@@ -170,7 +173,12 @@ body {
 
 h1 {
     color: var(--header-color);
-    font-size: 2.5rem;
+    font-size: 2.8rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
     margin: 0;
     transition: color var(--transition-time);
 }
@@ -189,17 +197,21 @@ h1 {
     cursor: pointer;
     width: 40px;
     height: 40px;
-    border-radius: 50%;
+    border-radius: 12px;
     display: flex;
     justify-content: center;
     align-items: center;
     background-color: var(--score-bg);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
     color: var(--text-color);
-    transition: background-color var(--transition-time), color var(--transition-time);
+    transition: all var(--transition-time);
 }
 
 .controls button:hover {
     background-color: var(--cell-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px var(--shadow-color);
 }
 
 /* Sound Controls */
@@ -283,11 +295,17 @@ body.pastel-theme #theme-toggle i {
 
 .option-group select {
     padding: 0.5rem;
-    border-radius: 5px;
-    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
     background-color: var(--container-bg);
+    backdrop-filter: blur(10px);
     color: var(--text-color);
-    transition: background-color var(--transition-time), color var(--transition-time);
+    transition: all var(--transition-time);
+}
+
+.option-group select:hover {
+    border-color: var(--primary-color);
+    box-shadow: 0 2px 8px var(--shadow-color);
 }
 
 /* Toggle Switch for Auto Restart */
@@ -402,18 +420,22 @@ body.pastel-theme #theme-toggle i {
 }
 
 #reset-btn {
-    background-color: var(--button-bg);
+    background: var(--button-bg);
     color: white;
     border: none;
     padding: 0.5rem 1rem;
-    border-radius: 5px;
+    border-radius: 12px;
     cursor: pointer;
     font-size: 1rem;
-    transition: background-color var(--transition-time);
+    font-weight: 600;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transition: all var(--transition-time);
 }
 
 #reset-btn:hover {
-    background-color: var(--button-hover);
+    background: var(--button-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
 }
 
 /* Score Board */
@@ -422,8 +444,10 @@ body.pastel-theme #theme-toggle i {
     justify-content: space-around;
     margin-bottom: 1.5rem;
     background-color: var(--score-bg);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
     padding: 1rem;
-    border-radius: 5px;
+    border-radius: 16px;
     transition: background-color var(--transition-time);
 }
 
@@ -517,6 +541,8 @@ body.pastel-theme #theme-toggle i {
 
 .cell {
     background-color: var(--cell-bg);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
     aspect-ratio: 1;
     display: flex;
     justify-content: center;
@@ -524,8 +550,22 @@ body.pastel-theme #theme-toggle i {
     font-size: 3rem;
     font-weight: bold;
     cursor: pointer;
-    border-radius: 5px;
+    border-radius: 16px;
     transition: all var(--transition-time);
+    position: relative;
+    overflow: hidden;
+}
+
+.cell::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, transparent 0%, rgba(255, 255, 255, 0.1) 50%, transparent 100%);
+    opacity: 0;
+    transition: opacity var(--transition-time);
 }
 
 /* Cell size adjustments for different board sizes */
@@ -539,17 +579,27 @@ body.pastel-theme #theme-toggle i {
 
 .cell:hover {
     background-color: var(--cell-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px var(--shadow-color);
+}
+
+.cell:hover::after {
+    opacity: 1;
 }
 
 /* X and O styles */
 .cell.x::before {
-    content: "X";
+    content: "\f00d";
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
     color: var(--primary-color);
     transition: color var(--transition-time);
 }
 
 .cell.o::before {
-    content: "O";
+    content: "\f111";
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
     color: var(--secondary-color);
     transition: color var(--transition-time);
 }
@@ -568,7 +618,9 @@ body.pastel-theme #theme-toggle i {
 /* Game History */
 .game-history {
     background-color: var(--history-bg);
-    border-radius: 5px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 16px;
     padding: 1rem;
     text-align: left;
     max-height: 200px;
@@ -1024,8 +1076,10 @@ button:focus, select:focus, input:focus {
 
 .modal-content {
     background-color: var(--modal-bg);
-    border-radius: 10px;
-    box-shadow: 0 0 20px var(--shadow-color);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 20px;
+    box-shadow: 0 12px 40px var(--shadow-color);
     width: 90%;
     max-width: 500px;
     max-height: 90vh;
@@ -1044,8 +1098,9 @@ button:focus, select:focus, input:focus {
     align-items: center;
     padding: 1rem;
     background-color: var(--modal-header);
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
+    backdrop-filter: blur(10px);
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
     border-bottom: 1px solid var(--border-color);
 }
 
@@ -1071,24 +1126,29 @@ button:focus, select:focus, input:focus {
     padding: 1rem;
     text-align: right;
     background-color: var(--modal-footer);
+    backdrop-filter: blur(10px);
     border-top: 1px solid var(--border-color);
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
 }
 
 #save-personalization {
-    background-color: var(--primary-color);
+    background: var(--button-bg);
     color: white;
     border: none;
     padding: 0.5rem 1rem;
-    border-radius: 5px;
+    border-radius: 12px;
     cursor: pointer;
     font-size: 1rem;
-    transition: background-color var(--transition-time);
+    font-weight: 600;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transition: all var(--transition-time);
 }
 
 #save-personalization:hover {
-    background-color: var(--button-hover);
+    background: var(--button-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
 }
 
 /* Tabs */
@@ -1106,12 +1166,18 @@ button:focus, select:focus, input:focus {
     cursor: pointer;
     color: var(--text-color);
     font-weight: bold;
-    transition: all var(--transition-time);
+    border-radius: 8px;
+    transition: all 0.2s ease;
     border-bottom: 2px solid transparent;
+}
+
+.tab-btn:hover {
+    background-color: rgba(102, 126, 234, 0.1);
 }
 
 .tab-btn.active {
     color: var(--primary-color);
+    background-color: rgba(102, 126, 234, 0.1);
     border-bottom: 2px solid var(--primary-color);
 }
 
@@ -1137,10 +1203,18 @@ button:focus, select:focus, input:focus {
 .form-group input {
     width: 100%;
     padding: 0.5rem;
-    border: 1px solid var(--border-color);
-    border-radius: 5px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 12px;
     background-color: var(--container-bg);
+    backdrop-filter: blur(10px);
     color: var(--text-color);
+    transition: all var(--transition-time);
+}
+
+.form-group input:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    outline: none;
 }
 
 /* Marker Options */
@@ -1157,8 +1231,9 @@ button:focus, select:focus, input:focus {
     justify-content: center;
     align-items: center;
     background-color: var(--cell-bg);
-    border: 1px solid var(--border-color);
-    border-radius: 5px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 12px;
     cursor: pointer;
     font-size: 1.2rem;
     transition: all var(--transition-time);
@@ -1166,12 +1241,15 @@ button:focus, select:focus, input:focus {
 
 .marker-option:hover {
     background-color: var(--cell-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px var(--shadow-color);
 }
 
 .marker-option.selected {
-    background-color: var(--primary-color);
+    background: var(--button-bg);
     color: white;
-    border-color: var(--primary-color);
+    border-color: transparent;
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
 }
 
 /* Theme Options */
@@ -1329,19 +1407,24 @@ button:focus, select:focus, input:focus {
 
 /* Custom markers in cells */
 .cell.custom-x, .cell.custom-o {
-    font-size: 2rem;
+    font-size: 2.5rem;
 }
 
 .board[data-size="4"] .cell.custom-x,
 .board[data-size="4"] .cell.custom-o {
-    font-size: 1.8rem;
+    font-size: 2rem;
 }
 
 .board[data-size="5"] .cell.custom-x,
 .board[data-size="5"] .cell.custom-o {
-    font-size: 1.5rem;
+    font-size: 1.7rem;
 }
 
-.cell.custom-x::before, .cell.custom-o::before {
-    content: attr(data-custom-marker);
+.cell.custom-x i, .cell.custom-o i {
+    color: var(--primary-color);
+    transition: all var(--transition-time);
+}
+
+.cell.custom-o i {
+    color: var(--secondary-color);
 }

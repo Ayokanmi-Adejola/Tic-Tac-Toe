@@ -18,7 +18,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Personalization variables
     let playerNames = { x: 'Player X', o: 'Player O' };
-    let playerMarkers = { x: 'X', o: 'O' };
+    let playerMarkers = { x: '✕', o: '●' };
+    let playerIcons = { x: 'fas fa-times', o: 'fas fa-circle' };
     let currentTheme = 'default';
     let boardSize = 3; // 3x3 board by default
 
@@ -130,6 +131,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // Load personalization settings
             if (settings.playerNames) playerNames = settings.playerNames;
             if (settings.playerMarkers) playerMarkers = settings.playerMarkers;
+            if (settings.playerIcons) playerIcons = settings.playerIcons;
             if (settings.theme) currentTheme = settings.theme;
             if (settings.boardSize) boardSize = settings.boardSize;
 
@@ -219,6 +221,7 @@ document.addEventListener('DOMContentLoaded', () => {
             autoRestartEnabled,
             playerNames,
             playerMarkers,
+            playerIcons,
             theme: currentTheme,
             boardSize
         };
@@ -275,17 +278,19 @@ document.addEventListener('DOMContentLoaded', () => {
         // Update internal game state
         gameState[clickedCellIndex] = currentPlayer;
 
-        // Update UI based on whether we're using custom markers
-        if (playerMarkers[currentPlayer] === 'X' || playerMarkers[currentPlayer] === 'O') {
-            // Using default X/O
+        // Update UI with icons
+        if (playerMarkers[currentPlayer] === '✕' || playerMarkers[currentPlayer] === '●') {
+            // Using default icons
             clickedCell.classList.add(currentPlayer);
             clickedCell.classList.remove('custom-x', 'custom-o');
             clickedCell.removeAttribute('data-custom-marker');
+            clickedCell.innerHTML = '';
         } else {
             // Using custom marker
             clickedCell.classList.add(`custom-${currentPlayer}`);
             clickedCell.classList.remove('x', 'o');
             clickedCell.setAttribute('data-custom-marker', playerMarkers[currentPlayer]);
+            clickedCell.innerHTML = `<i class="${playerIcons[currentPlayer]}"></i>`;
         }
     }
 
@@ -607,6 +612,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Remove any custom marker
             cell.removeAttribute('data-custom-marker');
+            
+            // Clear any icon content
+            cell.innerHTML = '';
 
             // Log the reset for debugging
             console.log(`Reset cell ${cell.getAttribute('data-cell-index')}`);
@@ -1041,10 +1049,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (selectedXMarker) {
             playerMarkers.x = selectedXMarker.dataset.marker;
+            playerIcons.x = selectedXMarker.dataset.icon;
         }
 
         if (selectedOMarker) {
             playerMarkers.o = selectedOMarker.dataset.marker;
+            playerIcons.o = selectedOMarker.dataset.icon;
         }
 
         // Save theme
