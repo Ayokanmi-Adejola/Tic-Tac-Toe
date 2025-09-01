@@ -1,0 +1,10 @@
+{
+  "name": "tic-tac-toe-game",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "node server.js",
+    "start": "node server.js"
+  },
+  "dependencies": {}
+}
