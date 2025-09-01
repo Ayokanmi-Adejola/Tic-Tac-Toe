@@ -3,6 +3,12 @@
 A modern, feature-rich Tic Tac Toe game built with HTML, CSS, and JavaScript. This responsive web application offers a personalized gaming experience with multiple customization options and advanced gameplay features.
 
 
+| Desktop View | Mobile View |
+| ------- | ------ |
+| <img width="1920" height="1434" alt="image" src="https://github.com/user-attachments/assets/bc5f3193-b29b-4104-a2eb-3e3a5cf1c0be" /> | <img width="351" height="1067" alt="image" src="https://github.com/user-attachments/assets/0ec382ea-5275-4be2-bee6-c8aac0f0e5b0" />
+
+
+
 ## 🎮 Features
 - **Multiple Game Modes**: Play against another person (PvP) or challenge the computer (PvC)
 - **Adjustable Difficulty Levels**: Easy, Medium, and Hard AI opponents
@@ -73,7 +79,7 @@ A modern, feature-rich Tic Tac Toe game built with HTML, CSS, and JavaScript. Th
 No installation required! Simply download the files and open `tic-tac-toe.html` in your web browser.
 
 ```
-git clone https://github.com/yourusername/tic-tac-toe-deluxe.git
+git clone https://github.com/Ayokanmi-Adejola/Tic-Tac-Toe
 cd tic-tac-toe-deluxe
 ```
 
