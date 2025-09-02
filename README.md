@@ -1,4 +1,4 @@
-# Tic Tac Toe Deluxe
+# Tic Tac Toe
 
 A modern, feature-rich Tic Tac Toe game built with HTML, CSS, and JavaScript. This responsive web application offers a personalized gaming experience with multiple customization options and advanced gameplay features.
 
