@@ -80,7 +80,7 @@ No installation required! Simply download the files and open `tic-tac-toe.html` 
 
 ```
 git clone https://github.com/Ayokanmi-Adejola/Tic-Tac-Toe
-cd tic-tac-toe
+cd Tic-Tac-Toe
 ```
 
 Then open `tic-tac-toe.html` in your browser.
